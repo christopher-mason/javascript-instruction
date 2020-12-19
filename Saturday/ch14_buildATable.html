@@ -1,0 +1,76 @@
+<h1>Mountains</h1>
+
+<div id="mountains"></div>
+
+<script>
+  const MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+    {name: "Everest", height: 8848, place: "Nepal"},
+    {name: "Mount Fuji", height: 3776, place: "Japan"},
+    {name: "Vaalserberg", height: 323, place: "Netherlands"},
+    {name: "Denali", height: 6168, place: "United States"},
+    {name: "Popocatepetl", height: 5465, place: "Mexico"},
+    {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+  ];
+
+    function addTdToRow(row, tdText) {
+        let td = document.createElement("td");
+        td.innerText = tdText;
+        row.appendChild(td);
+    }
+
+console.log(Object.keys(MOUNTAINS[0]));
+
+    let table = document.createElement("table");
+    for (let mtn of MOUNTAINS) {
+        let row = document.createElement("tr");
+        addTdToRow(row, mtn.name);
+        addTdToRow(row, mtn.height);
+        addTdToRow(row, mtn.place);
+
+
+        // row.appendChild(nameTd);
+
+        table.appendChild(row);
+    }
+    document.getElementById("mountains").appendChild(table);
+</script>
+<!--
+<table>
+    <tr>
+        <td>Kilimanjaro</td>
+        <td>5895</td>
+        <td>Tanzania</td>
+    </tr>
+    <tr>
+        <td>Everest</td>
+        <td>8848</td>
+        <td>Nepal</td>
+    </tr>
+    <tr>
+        <td>Mount Fuji</td>
+        <td>3376</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>Vaalserberg</td>
+        <td>323</td>
+        <td>Netherlands</td>
+    </tr>
+    <tr>
+        <td>Denali</td>
+        <td>6168</td>
+        <td>United States</td>
+    </tr>
+    <tr>
+        <td>Popocatepetl</td>
+        <td>5465</td>
+        <td>Mexico</td>
+    </tr>
+    <tr>
+        <td>Mount Blanc</td>
+        <td>4808</td>
+        <td>Italy/France</td>
+    </tr>
+</table>
+-->
