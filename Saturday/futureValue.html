@@ -6,37 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Future Value</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
     <script>
-        function calculateFutureValue(initInvest, monthlyInv, annInterestRate, months) {
-            let futureValue = initInvest;
-            for (let i = 1; i <= months; i++) {
-                futureValue = (futureValue + monthlyInv) * (1 + annInterestRate / 12 / 100);
-            }
-            return futureValue;
+        // Adds a <td> with the given value to the given row
+            function addTd(row, value) {
+            let td = document.createElement("td");
+            let tdText = document.createTextNode(value);
+            td.appendChild(tdText);
+            row.appendChild(td);
 
         }
-        function calculate() {
-            let initInvest = parseFloat(document.getElementById("initInvest").value);
-            let monthlyInvest = parseFloat(document.getElementById("monthlyInvest").value);
-            let annualInt = parseFloat(document.getElementById("annualInt").value);
-            let numMonths = parseFloat(document.getElementById("numMonths").value);
-            console.log("Button Clicked", initInvest, monthlyInvest, annualInt, numMonths);
 
-            let futureValue = 1200.15;
+        // Adds a new row to the history table with a td for each received value
+        function addToHistory(initInvest, monthInvest, annIntRate, numYears, total) {
+            let hist = document.getElementById("history");
+            let row = document.createElement("tr");
+            addTd(row, initInvest);
+            addTd(row, monthInvest);
+            addTd(row, annIntRate);
+            addTd(row, numYears);
+            addTd(row, total);
+            hist.insertBefore(row, hist.firstChild);
+        }
 
-            document.getElementById("futureValue").innerText = futureValue;
+        // Calculates and returns the future value from the given parameters
+        function calcFutureValue(initInvest, monthInvest, annIntRate, numYears) {
+            let total = initInvest;
+            for (let i = 0; i < numYears * 12; ++i) {
+                total = (total + monthInvest) * (1 + (annIntRate / 12 / 100));
+            }
+            return total;
+        }
+
+        // Displays the future value using the values in the input controls and records the
+        // result in the history table
+        function displayFutureValue() {
+            //let initInvest = parseFloat(document.getElementById("initInvest").value);
+            let initInvest = parseFloat($("#initInvest").val());
+            let monthInvest = parseFloat(document.getElementById("monthInvest").value);
+            let annIntRate = parseFloat(document.getElementById("annIntRate").value);
+            let numYears = parseFloat(document.getElementById("numYears").value);
+
+            let futureValue = calcFutureValue(initInvest, monthInvest, annIntRate, numYears);
+            futureValue = "$" + futureValue.toFixed(2);
+
+            let futureValueSpan = document.getElementById("futureValue");
+            futureValueSpan.innerText = `${futureValue}`;
+
+            addToHistory(initInvest, monthInvest, annIntRate, numYears, futureValue);
         }
     </script>
 </head>
 
 <body>
-    Inital Investment: <input type="number" id="initInvest"><br>
-    Monthly Investment: <input type="number" id="monthlyInvest"><br>
-    Annual Interest: <input type="number" id="annInterestRate"><br>
-    Number of Years: <input type="number" id="months"><br>
-    <button onclick="calculate()">Calculate</button>
-    <br>
-    Future value: <span id="futureValue"></span>
+    <!-- <div class="row">
+        <label for="initInvest" class="col">Initial Investment</label><input class="col" type="number" id="initInvest">
+    </div> -->
+    <label for="initInvest">Initial investment: </label><input type="number" id="initInvest"><br>
+    <label for="monthInvest">Monthly investment: </label><input type="number" id="monthInvest"><br>
+    <label for="annIntRate">Annual Interest Rate: </label><input type="number" id="annIntRate"><br>
+    <label for="numYears">Num Years: </label><input type="number" id="numYears"><br>
+    <button onclick="displayFutureValue()">Calculate</button>
+    <div>Future Value: <span id="futureValue"></span></div>
+    <br>History:<br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Init</th>
+                <th>Month</th>
+                <th>APR</th>
+                <th>Num Years</th>
+                <th>Future Value</th>
+            <tr>
+        </thead>
+        <tbody id="history">
+
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 
 </html>
