@@ -31,7 +31,8 @@
             addTd(row, annIntRate);
             addTd(row, numYears);
             addTd(row, total);
-            hist.insertBefore(row, hist.firstChild);
+            // hist.insertBefore(row, hist.firstChild);
+            hist.appendChild(row);
         }
 
         // Calculates and returns the future value from the given parameters
@@ -64,9 +65,11 @@
 </head>
 
 <body>
-    <!-- <div class="row">
-        <label for="initInvest" class="col">Initial Investment</label><input class="col" type="number" id="initInvest">
-    </div> -->
+    <div class="container">
+        <div class="row">
+            <label for="initInvest" class="col">Initial investment</label><input class="col" type="number" id="initInvest">
+    </div>
+    </div>
     <label for="initInvest">Initial investment: </label><input type="number" id="initInvest"><br>
     <label for="monthInvest">Monthly investment: </label><input type="number" id="monthInvest"><br>
     <label for="annIntRate">Annual Interest Rate: </label><input type="number" id="annIntRate"><br>
